@@ -1,3 +1,11 @@
 .card-image {
   background-color: #36454f;
 }
+
+.list-info {
+  list-style: none;
+}
+
+.address {
+  font-style: normal;
+}

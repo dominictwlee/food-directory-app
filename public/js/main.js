@@ -9,83 +9,81 @@ function handleErrors(res) {
   return res.json();
 }
 
-function createRestaurantCard(data, fragment) {
-  //  Build div element with column class
+function createRestaurantCard(data, fragment, columns) {
   const column = document.createElement('div');
   column.classList.add('column', 'is-one-quarter');
+  column.innerHTML = `
+    <article class="card">
+      <header class="card-header">
+        <p class="card-header-title">${data.name}</p>
+        <p class="card-header-icon"><em>Rating: ${data.rating}/5 (${data.reviews} reviews)</em></p>
+      </header>
+      <div class="card-image is-centered">
+        <figure class="image is-16by9">
+          <img src="${data.image}" alt="Restaurant Image">
+        </figure>
+      </div>
+      <section class="card-content">
+        <div class="content">
+          <address class="address">
+            ${data.address.map(line => `${line}<br>`).join('')}
+            Beechwood Road,
+            Flat 48 Fuse Building,<br>
+            E8 3DY
+          </address>
+          <p>${data.phone}</p>
+        </content>
+      </section>
+      <footer class="card-footer">
+        <a class="card-footer-item">Directions</a>
+        <a class="card-footer-item">Reviews</a>
+        <p class="card-footer-item">Price: ${data.price}</a>
+      </footer>
+    </article>
+  `
+  columns.appendChild(column);
 
-  // Build Article element with card class and append to column
-  const card = document.createElement('article');
-  card.classList.add('card');
-  column.appendChild(card);
-
-  //  Build Card header and append to card
-  const cardHeader = document.createElement('header');
-  cardHeader.classList.add('card-header');
-  card.appendChild(cardHeader);
-
-  //  Build card header title
-  const cardHeaderTitle = document.createElement('p');
-  cardHeaderTitle.classList.add('card-header-title');
-  cardHeaderTitle.innerText = data.name;
-  cardHeader.appendChild(cardHeaderTitle);
-  //  Build header rating
-  const rating = document.createElement('p');
-  rating.classList.add('card-header-icon');
-  rating.innerText = data.rating;
-  cardHeader.appendChild(rating);
-
-  //  Build Card image
-  const cardImage = document.createElement('div');
-  const imageWrapper = document.createElement('figure');
-  const image = document.createElement('img');
-  cardImage.classList.add('card-image');
-  imageWrapper.classList.add('image', 'is-16by9');
-  image.setAttribute('src', data.image);
-  image.setAttribute('alt', 'restaurant image');
-  card.appendChild(cardImage);
-  cardImage.appendChild(imageWrapper)
-  imageWrapper.appendChild(image);
-
-  //  Build Card Content Section
-  const cardContent = document.createElement('section');
-  cardContent.classList.add('card-content');
-  card.appendChild(cardContent);
-
-  //  Build Content block
-  const content = document.createElement('div');
-  // content.classList.add('content');
-  cardContent.appendChild(content);
-
-  //  Create address block
-  data.address.forEach((sentence) => {
-    const line = document.createElement('p');
-    line.innerText = sentence;
-    content.appendChild(line);
-  });
-
-
-  //  Create Price Info
-  const price = document.createElement('p');
-  price.innerText = `Price: ${data.price}`;
-  content.appendChild(price);
-
-  fragment.appendChild(column);
 }
 
 searchForm.addEventListener('submit', (event) => {
+  const mainBody = document.querySelector('#main-body');
   //  Fetch restaurant data from API
   const url = `api/search?postcode=${postCode.value}`;
   fetch(url)
-  .then((res) => res.json())
-  .then(data => {
-    const cardFragment = document.createDocumentFragment();
-    const columns = document.querySelector('.columns');
-    columns.innerHTML = '';
-    data.forEach((restaurant) => {
-      createRestaurantCard(restaurant, cardFragment)
+    .then((res) => {
+      if (res.status === 400) {
+        throw new Error('No Entries Found');
+      }
+      return res.json();
     })
-    columns.appendChild(cardFragment);
-  })
-  event.preventDefault();
+    .then(data => {
+      const columns = document.createElement('div');
+      columns.classList.add('columns', 'is-multiline');
+      const cardFragment = document.createDocumentFragment();
+
+      mainBody.innerHTML = '';
+
+      data.forEach((restaurant) => {
+        createRestaurantCard(restaurant, cardFragment, columns)
+      })
+      mainBody.appendChild(columns);
+    })
+    .catch(err => {
+      mainBody.innerHTML = `
+        <section class="hero is-light is-bold">
+          <div class="hero-body">
+            <div class="container has-text-centered">
+              <h1 class="title">
+                Sorry
+              </h1>
+              <h2 class="subtitle">
+                No Entries Found
+              </h2>
+            </div>
+          </div>
+        </section>
+      `;
+      console.log(err.message);
+    })
+    event.preventDefault();
 })

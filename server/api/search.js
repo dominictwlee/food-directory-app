@@ -45,6 +45,7 @@ apiRouter.get('/search', (req, res) => {
     })
     .catch((err) => {
       console.log(err.message);
+      res.status(400).send('Something is wrong');
     })
 });
 
