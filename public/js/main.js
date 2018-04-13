@@ -76,8 +76,6 @@ function createRestaurantCard(data, fragment) {
 searchForm.addEventListener('submit', (event) => {
   //  Fetch restaurant data from API
   const url = `api/search?postcode=${postCode.value}`;
-  // console.log(postCode.value)
-
   fetch(url)
   .then((res) => res.json())
   .then(data => {

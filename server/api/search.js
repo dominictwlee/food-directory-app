@@ -46,13 +46,6 @@ apiRouter.get('/search', (req, res) => {
     .catch((err) => {
       console.log(err.message);
     })
-
-
 });
-
-//  Google Maps API GET request for
-
-
-
 
 module.exports = { apiRouter };
