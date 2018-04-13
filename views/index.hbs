@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="has-navbar-fixed-top">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,25 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+  <nav class="navbar is-transparent is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <svg class="lnr lnr-dinner"><use xlink:href="#lnr-dinner"></use></svg>
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <a href="/signup" class="navbar-item">Sign Up</a>
+        <a href="/login" class="navbar-item">Login</a>
+      </div>
+    </div>
+  </nav>
 
   <section class="hero has-text-centered">
     <div class="hero-body">
@@ -80,7 +99,7 @@
       </div>
     </div>
   </section>
-
+  <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
   <script src="/js/main.js" charset="utf-8"></script>
 </body>
 </html>
