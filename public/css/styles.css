@@ -1,7 +1,3 @@
-.card-image {
-
-}
-
 .list-info {
   list-style: none;
 }
@@ -18,16 +14,13 @@
   vertical-align: -0.05em;
 }
 
-.lnr-dinner {
+.navbar-brand .navbar-item:hover {
   color: #d01d1d;
   /* We can use "color" for setting the color
   of the SVG because we set its "fill" to
   "currentColor" */
-  font-size: 3rem;
-  /* We can use "font-size" for changing the size
-  of the SVG because its width and height were
-  set 1em.
-  To get crisp results, use sizes that are
-  a multiple of 20; because Linearicons was
-  designed on a 20 by 20 grid. */
+}
+
+.container-sign-up {
+  width: 30%;
 }

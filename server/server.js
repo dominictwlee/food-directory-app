@@ -1,5 +1,5 @@
 const express = require('express');
-var hbs  = require('hbs');
+const hbs  = require('hbs');
 const path = require('path')
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
@@ -38,6 +38,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 app.set('view engine', 'hbs');
+hbs.registerPartials(path.join(__dirname, '../views/partials'));
 
 //  passport configs
 app.use(session({ secret: process.env.SESSION_SECRET }));
