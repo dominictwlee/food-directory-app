@@ -23,7 +23,7 @@ const port = process.env.PORT;
 function listening () {
   browserSync({
     proxy: `localhost:${port}`,
-    files: ['public/**/*.{js,css,html}', 'views/**/*.hbs'],
+    files: ['public/**/*.{js,css}', 'views/**/*.hbs'],
     open: false
   });
   console.log(`Server has started on port ${port}`)

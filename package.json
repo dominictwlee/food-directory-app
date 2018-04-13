@@ -2,7 +2,7 @@
   "name": "asian-food-directory",
   "version": "1.0.0",
   "description": "Food directory project",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
     "start-watch": "nodemon server/server.js",

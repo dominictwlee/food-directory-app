@@ -19,7 +19,7 @@ function createRestaurantCard(data, fragment, columns) {
         <p class="card-header-icon"><em>Rating: ${data.rating}/5 (${data.reviews} reviews)</em></p>
       </header>
       <div class="card-image is-centered">
-        <figure class="image is-16by9">
+        <figure class="image is-3by2">
           <img src="${data.image}" alt="Restaurant Image">
         </figure>
       </div>
@@ -27,9 +27,6 @@ function createRestaurantCard(data, fragment, columns) {
         <div class="content">
           <address class="address">
             ${data.address.map(line => `${line}<br>`).join('')}
-            Beechwood Road,
-            Flat 48 Fuse Building,<br>
-            E8 3DY
           </address>
           <p>${data.phone}</p>
         </content>
@@ -74,7 +71,7 @@ searchForm.addEventListener('submit', (event) => {
           <div class="hero-body">
             <div class="container has-text-centered">
               <h1 class="title">
-                Sorry
+                Sorry...
               </h1>
               <h2 class="subtitle">
                 No Entries Found

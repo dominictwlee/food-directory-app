@@ -18,7 +18,7 @@ apiRouter.get('/search', (req, res) => {
       } else {
         const {lat, lng} = res.results[0].geometry.location;
         const yelpSearch = {
-          url: `https://api.yelp.com/v3/businesses/search?categories=${cuisine.toLowerCase()}&latitude=${lat}&longitude=${lng}&limit=12&sort_by=rating`,
+          url: `https://api.yelp.com/v3/businesses/search?categories=${cuisine.toLowerCase()}&latitude=${lat}&longitude=${lng}&limit=12&sort_by=rating&radius=5000`,
           json: true,
           headers : {
             Authorization: `Bearer ${process.env.YELP_API_KEY}`,
