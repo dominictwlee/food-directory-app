@@ -14,6 +14,7 @@ const browserSync = require('browser-sync');
 require('dotenv').config();
 require('./config/config');
 const { apiRouter } = require('./api/search');
+const { router } = require('./routes');
 
 const app = express();
 const port = process.env.PORT;
@@ -47,11 +48,10 @@ app.use(flash());
 // require('./routes.js')(app, passport);
 
 app.use('/api', apiRouter);
+app.use('/', router);
 
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../node_modules/bulma')));
-
-app.get('/', (req, res) => res.render('index'));
 
 // app.get('/api/search', (req, res) => res.send(req.query));
 
