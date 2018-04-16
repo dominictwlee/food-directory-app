@@ -56,6 +56,9 @@ app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 app.use('/profile', profileRouter);
 
-app.get('/', (req, res) => res.render('index'));
+app.get('/', (req, res) => {
+  res.send
+  res.render('index', { user: req.user })
+});
 
 app.listen(port, listening);

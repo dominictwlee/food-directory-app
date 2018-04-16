@@ -1,5 +1,94 @@
-{{> header}}
+{{> header }}
 
-<h1>PROFILE PAGE</h1>
+<nav class="navbar is-transparent is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <i class="fas fa-utensils fa-3x"></i>
+    </a>
 
-{{> footer}}
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <a href="/" class="navbar-item">Home</a>
+      <a href="/auth/logout" class="navbar-item">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero has-text-centered">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        User Profile
+      </h1>
+      <h2 class="subtitle">
+        Your favourite restaurants
+      </h2>
+    </div>
+  </div>
+</section>
+
+<form id="search-form">
+  <div class="field is-grouped is-grouped-centered">
+    <div class="control">
+      <div class="select is-medium">
+        <select id="cuisine-type">
+          <option value="Chinese">Chinese</option>
+          <option value="Japanese">Japanese</option>
+          <option value="Korean">Korean</option>
+          <option value="Thai">Thai</option>
+        </select>
+      </div>
+    </div>
+    <div class="field has-addons">
+      <div class="control">
+        <input class="input is-medium" type="text" placeholder="Restaurant name" id="postcode">
+      </div>
+      <div class="control">
+        <button type="submit" class="button is-info is-medium">Filter</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<section class="section">
+  <div class="container is-fluid" id="main-body">
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter">
+        <article class="card">
+          <header class="card-header">
+            <p class="card-header-title">Super Ramen</p>
+            <p class="card-header-icon"><em>Rating: 4/5 (28 reviews)</em></p>
+          </header>
+          <div class="card-image is-centered">
+            <figure class="image">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Ajisen_ramen_shop_by_liuxia_in_Shenzhen%2C_China.jpg" alt="Restaurant Image">
+            </figure>
+          </div>
+          <section class="card-content">
+            <div class="content">
+              <address class="address">
+                Beechwood Road,
+                Flat 48 Fuse Building,<br>
+                E8 3DY
+              </address>
+              <p>+44 20 7359 7440</p>
+            </content>
+          </section>
+          <footer class="card-footer">
+            <a class="card-footer-item">Directions</a>
+            <a class="card-footer-item">Reviews</a>
+            <a class="card-footer-item">Save</a>
+          </footer>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{> footer }}
