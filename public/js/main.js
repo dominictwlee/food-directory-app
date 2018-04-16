@@ -29,12 +29,15 @@ function createRestaurantCard(data, fragment, columns) {
             ${data.address.map(line => `${line}<br>`).join('')}
           </address>
           <p>${data.phone}</p>
+          <p>Price: ${data.price}</p>
         </content>
       </section>
       <footer class="card-footer">
         <a class="card-footer-item">Directions</a>
         <a class="card-footer-item">Reviews</a>
-        <p class="card-footer-item">Price: ${data.price}</a>
+      </footer>
+      <footer class="card-footer">
+        <a class="card-footer-item">Save To Favourites</a>
       </footer>
     </article>
   `
