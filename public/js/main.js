@@ -9,7 +9,7 @@ function handleErrors(res) {
   return res.json();
 }
 
-function createRestaurantCard(data, fragment, columns) {
+function createRestaurantCard(data, index, columns) {
   const column = document.createElement('div');
   column.classList.add('column', 'is-one-quarter');
   column.innerHTML = `
@@ -37,7 +37,7 @@ function createRestaurantCard(data, fragment, columns) {
         <a class="card-footer-item">Reviews</a>
       </footer>
       <footer class="card-footer">
-        <a class="card-footer-item">Save To Favourites</a>
+        <button class="card-footer-item button is-large is-primary" id="save-btn" data-index="${index}">Save To Favourites</button>
       </footer>
     </article>
   `
@@ -63,10 +63,22 @@ searchForm.addEventListener('submit', (event) => {
 
       mainBody.innerHTML = '';
 
-      data.forEach((restaurant) => {
-        createRestaurantCard(restaurant, cardFragment, columns)
+      data.forEach((restaurant, index) => {
+        createRestaurantCard(restaurant, index, columns)
       })
       mainBody.appendChild(columns);
+      return data;
+    })
+    .then(restaurant => {
+      const saveBtn = document.querySelectorAll('#save-btn');
+      saveBtn.forEach((button, index) => {
+        button.addEventListener('click', (event) => {
+          console.log(event.target)
+        })
+      })
+
+
+
     })
     .catch(err => {
       mainBody.innerHTML = `
