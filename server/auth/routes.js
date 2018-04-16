@@ -1,6 +1,5 @@
 const express = require('express');
 const passport = require('passport');
-const request = require('request-promise-native');
 
 const authRouter = express.Router();
 
@@ -23,6 +22,6 @@ authRouter.get('/google', passport.authenticate('google', {
 authRouter.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   console.log(req.user)
   res.redirect('/profile');
-})
+});
 
 module.exports = authRouter;

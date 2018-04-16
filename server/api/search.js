@@ -49,4 +49,4 @@ apiRouter.get('/search', (req, res) => {
     })
 });
 
-module.exports = { apiRouter };
+module.exports = apiRouter;
