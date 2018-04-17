@@ -17,10 +17,16 @@ const authCheck = (req, res, next) => {
 profileRouter.get('/', authCheck, (req, res) => {
   Profile.findOne({ _user: req.user._id })
     .then((user) => {
-      const restaurantList = user.restaurants;
-      const address = user.restaurants.address;
-      res.render('profile', { restaurantList, address } );
+      if (user) {
+        const restaurantList = user.restaurants;
+        const address = user.restaurants.address;
+        res.render('profile', { restaurantList, address });
+      } else {
+        res.render('profile');
+      }
+
     })
+    .catch((err) => console.log(err));
 
 });
 
