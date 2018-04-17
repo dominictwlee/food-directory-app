@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const ObjectId = require('mongodb').ObjectID;
 
 const Restaurant = require('../models/restaurant');
 
@@ -18,21 +19,27 @@ profileRouter.get('/', authCheck, (req, res) => {
   console.log(req.user);
 });
 
-profileRouter.post('/', (req, res) => {
-  console.log(req.body);
-  console.log(req.user);
-  // const restaurant = new Restaurant({
-  //   name: req.body.name,
-  //   image: req.body.image,
-  //   phone: req.body.phone,
-  //   reviews: req.body.reviews,
-  //   price: req.body.price,
-  //   rating: req.body.rating,
-  //   address: req.body.address,
-  // });
-  // restaurant.save()
-  //   .then((doc) => res.send(doc));
-  //   .catch((err) => res.status(400).send(err));
+profileRouter.post('/', authCheck, (req, res) => {
+  // console.log(req.body);
+  // console.log(req.user._id);
+  const userQuery = { _user: req.user._id };
+
+  Restaurant.findOne(userQuery)
+    .then((doc) => {
+      if (!doc) {
+        const restaurant = new Restaurant({
+          _user: req.user._id,
+          restaurants: [req.body],
+        });
+        restaurant.save()
+          .then((doc) => res.send(doc))
+          .catch(err => res.status(400).send(err));
+      } else {
+        Restaurant.updateOne(userQuery, {$addToSet: { restaurants: req.body }})
+          .then((res) => console.log(res));
+
+      }
+    })
 });
 
 module.exports = profileRouter;
