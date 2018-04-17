@@ -35,16 +35,6 @@
 
 <form id="search-form">
   <div class="field is-grouped is-grouped-centered">
-    <div class="control">
-      <div class="select is-medium">
-        <select id="cuisine-type">
-          <option value="Chinese">Chinese</option>
-          <option value="Japanese">Japanese</option>
-          <option value="Korean">Korean</option>
-          <option value="Thai">Thai</option>
-        </select>
-      </div>
-    </div>
     <div class="field has-addons">
       <div class="control">
         <input class="input is-medium" type="text" placeholder="Restaurant name" id="postcode">
@@ -59,34 +49,41 @@
 <section class="section">
   <div class="container is-fluid" id="main-body">
     <div class="columns is-multiline">
-      <div class="column is-one-quarter">
-        <article class="card">
-          <header class="card-header">
-            <p class="card-header-title">Super Ramen</p>
-            <p class="card-header-icon"><em>Rating: 4/5 (28 reviews)</em></p>
-          </header>
-          <div class="card-image is-centered">
-            <figure class="image">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Ajisen_ramen_shop_by_liuxia_in_Shenzhen%2C_China.jpg" alt="Restaurant Image">
-            </figure>
-          </div>
-          <section class="card-content">
-            <div class="content">
-              <address class="address">
-                Beechwood Road,
-                Flat 48 Fuse Building,<br>
-                E8 3DY
-              </address>
-              <p>+44 20 7359 7440</p>
-            </content>
-          </section>
-          <footer class="card-footer">
-            <a class="card-footer-item">Directions</a>
-            <a class="card-footer-item">Reviews</a>
-            <a class="card-footer-item">Save</a>
-          </footer>
-        </article>
-      </div>
+
+      {{#each restaurantList}}
+        <div class="column is-one-quarter">
+          <article class="card">
+            <header class="card-header">
+              <p class="card-header-title">{{this.name}}</p>
+              <p class="card-header-icon"><em>Rating: {{this.rating}}/5 ({{this.reviews}} reviews)</em></p>
+            </header>
+            <div class="card-image is-centered">
+              <figure class="image is-3by2">
+                <img src="{{this.image}}" alt="Restaurant Image">
+              </figure>
+            </div>
+            <section class="card-content">
+              <div class="content">
+                <address class="address">
+                  {{#each address}}
+                  {{this}}<br>
+                  {{/each}}
+                </address>
+                <p>{{this.phone}}</p>
+                <p>Price: {{this.price}}</p>
+              </content>
+            </section>
+            <footer class="card-footer">
+              <a class="card-footer-item">Directions</a>
+              <a class="card-footer-item">Reviews</a>
+            </footer>
+            <footer class="card-footer">
+              <button class="card-footer-item button is-large is-danger" id="delete-btn" data-index="${index}">Delete</button>
+            </footer>
+          </article>
+        </div>
+      {{/each}}
+
     </div>
   </div>
 </section>

@@ -18,8 +18,9 @@ profileRouter.get('/', authCheck, (req, res) => {
   Profile.findOne({ _user: req.user._id })
     .then((user) => {
       const restaurantList = user.restaurants;
+      const address = user.restaurants.address;
       console.log(user.restaurants[0].address[0])
-      res.render('profile', { restaurantList } );
+      res.render('profile', { restaurantList, address } );
     })
 
 });

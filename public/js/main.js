@@ -78,7 +78,7 @@ searchForm.addEventListener('submit', (event) => {
           console.log(restaurant);
           const data = restaurant[itemIndex];
 
-          fetch('/profile', {
+          fetch('profile', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
