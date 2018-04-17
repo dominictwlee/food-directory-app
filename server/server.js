@@ -54,6 +54,13 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('connected to mongodb'))
   .catch(err => console.log(err));
 
+//  Enable CORS
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 app.use('/profile', profileRouter);
