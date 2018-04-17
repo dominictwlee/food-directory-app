@@ -8,7 +8,7 @@ const restaurantSchema = new mongoose.Schema({
   reviews: String,
   price: String,
   rating: String,
-  address: String,
+  address: [String],
 })
 
 const profileSchema = new mongoose.Schema({
