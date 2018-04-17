@@ -10,9 +10,9 @@ const cookieSession = require('cookie-session');
 require('dotenv').config();
 require('./config/config');
 const passportConfig = require('./config/passport');
-const authRouter = require('./auth/routes');
-const apiRouter = require('./api/search');
-const profileRouter = require('./profile/routes');
+const authRouter = require('./routes/auth');
+const apiRouter = require('./routes/api/search');
+const profileRouter = require('./routes/profile');
 
 const app = express();
 const port = process.env.PORT;
