@@ -19,7 +19,6 @@ profileRouter.get('/', authCheck, (req, res) => {
     .then((user) => {
       const restaurantList = user.restaurants;
       const address = user.restaurants.address;
-      console.log(user.restaurants[0].address[0])
       res.render('profile', { restaurantList, address } );
     })
 
