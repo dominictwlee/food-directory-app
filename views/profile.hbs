@@ -50,7 +50,7 @@
 <section class="section">
   <div class="container is-fluid" id="main-body">
     <div class="columns is-multiline">
-
+    {{#if restaurantList}}
       {{#each restaurantList}}
         <div class="column is-one-quarter">
           <article class="card">
@@ -84,7 +84,7 @@
           </article>
         </div>
       {{/each}}
-
+    {{/if}}
     </div>
   </div>
 </section>
