@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const ObjectId = require('mongodb').ObjectID;
 
-const Restaurant = require('../models/restaurant');
+const Profile = require('../models/profile');
 
 const profileRouter = express.Router();
 
@@ -20,26 +20,24 @@ profileRouter.get('/', authCheck, (req, res) => {
 });
 
 profileRouter.post('/', authCheck, (req, res) => {
-  // console.log(req.body);
-  // console.log(req.user._id);
   const userQuery = { _user: req.user._id };
-
-  Restaurant.findOne(userQuery)
+  Profile.findOne(userQuery)
     .then((doc) => {
       if (!doc) {
-        const restaurant = new Restaurant({
+        const profile = new Profile({
           _user: req.user._id,
           restaurants: [req.body],
         });
-        restaurant.save()
+        profile.save()
           .then((doc) => res.send(doc))
           .catch(err => res.status(400).send(err));
       } else {
-        Restaurant.updateOne(userQuery, {$addToSet: { restaurants: req.body }})
-          .then((res) => console.log(res));
-
+        Profile.updateOne(userQuery, {$addToSet: { restaurants: req.body }})
+          .then((result) => res.send(res))
+          .catch(err => res.status(400).send(err));
       }
     })
+    .catch(err => res.status(400).send(err));
 });
 
 module.exports = profileRouter;

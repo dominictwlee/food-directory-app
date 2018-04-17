@@ -73,16 +73,10 @@ searchForm.addEventListener('submit', (event) => {
       const saveBtn = document.querySelectorAll('#save-btn');
       saveBtn.forEach((button, index) => {
         button.addEventListener('click', (event) => {
-          console.log(event);
-          const data = {
-            name: 'Hakkasan',
-            image: 'https://s3-media1.fl.yelpcdn.com/bphoto/6Pb66YehODkSqOwt99QtHw/o.jpg',
-            phone: '+44 20 7927 7000',
-            reviews: 210,
-            price: '££££',
-            rating: 4,
-            address: ['8 Hanway Place', 'London W1T 1HD', 'United Kingdom']
-          };
+          const itemIndex = event.target.dataset.index;
+          console.log(itemIndex);
+          console.log(restaurant);
+          const data = restaurant[itemIndex];
 
           fetch('/profile', {
             method: 'POST',
@@ -94,9 +88,6 @@ searchForm.addEventListener('submit', (event) => {
           })
         })
       })
-
-
-
     })
     .catch(err => {
       mainBody.innerHTML = `
