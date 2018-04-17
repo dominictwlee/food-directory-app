@@ -20,20 +20,18 @@ passport.use(
     User.findOne({ googleId: profile.id })
       .then((currentUser) => {
         if (currentUser) {
-          console.log('User is:', currentUser);
-          done(null, currentUser)
-        } else {
-          const user = new User({
-            googleId: profile.id,
-            username: profile.displayName,
-          });
-          user.save()
-            .then(newUser => {
-              console.log(newUser)
-              done(null, newUser);
-            })
-            .catch(err => console.log(err));
+          return done(null, currentUser)
         }
+        const user = new User({
+          googleId: profile.id,
+          username: profile.displayName,
+        });
+        user.save()
+          .then(newUser => {
+            console.log(newUser)
+            done(null, newUser);
+          })
       })
+      .catch(err => console.log(err));
   })
 );

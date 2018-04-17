@@ -17,9 +17,6 @@ const profileRouter = require('./routes/profile');
 const app = express();
 const port = process.env.PORT;
 
-app.use(express.static(path.join(__dirname, '../public')));
-app.use(express.static(path.join(__dirname, '../node_modules/bulma')));
-
 //  Browser-sync config
 function listening () {
   browserSync({
@@ -31,6 +28,11 @@ function listening () {
   });
   console.log(`Server has started on port ${port}`)
 }
+
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../node_modules/bulma')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //  Setup View Engine
 app.set('view engine', 'hbs');
