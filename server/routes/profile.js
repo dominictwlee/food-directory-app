@@ -15,8 +15,13 @@ const authCheck = (req, res, next) => {
 };
 
 profileRouter.get('/', authCheck, (req, res) => {
-  res.render('profile');
-  console.log(req.user);
+  Profile.findOne({ _user: req.user._id })
+    .then((user) => {
+      const restaurantList = user.restaurants;
+      console.log(user.restaurants[0].address[0])
+      res.render('profile', { restaurantList } );
+    })
+
 });
 
 profileRouter.post('/', authCheck, (req, res) => {
@@ -30,14 +35,17 @@ profileRouter.post('/', authCheck, (req, res) => {
         });
         profile.save()
           .then((doc) => res.send(doc))
-          .catch(err => res.status(400).send(err));
+          .catch(err => res.sendStatus(400));
       } else {
         Profile.updateOne(userQuery, {$addToSet: { restaurants: req.body }})
-          .then((result) => res.send(res))
-          .catch(err => res.status(400).send(err));
+          .then((result) => res.status(200).send(result))
+          .catch(err => res.sendStatus(400));
       }
     })
-    .catch(err => res.status(400).send(err));
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(400)
+    });
 });
 
 module.exports = profileRouter;
