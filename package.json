@@ -18,7 +18,7 @@
     "url": "https://github.com/dominictwlee/asian-food-directory/issues"
   },
   "engines": {
-    "node": "8.11.1"
+    "node": "9.11.1"
   },
   "homepage": "https://github.com/dominictwlee/asian-food-directory#readme",
   "dependencies": {
