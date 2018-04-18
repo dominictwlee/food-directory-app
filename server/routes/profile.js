@@ -29,28 +29,24 @@ profileRouter.get('/', authCheck, (req, res) => {
 
 });
 
-profileRouter.post('/', authCheck, (req, res) => {
-  const userQuery = { _user: req.user._id };
-  Profile.findOne(userQuery)
+profileRouter.post('/', authCheck, (req, res, next) => {
+  //  Find user profile
+  Profile.findOne({ _user: req.user._id })
     .then((doc) => {
       if (!doc) {
-        const profile = new Profile({
-          _user: req.user._id,
-          restaurants: [req.body],
-        });
-        profile.save()
-          .then((doc) => res.send(doc))
-          .catch(err => res.sendStatus(400));
+        //  Create profile if it doesn't exist
+        Profile.create({ _user: req.user._id, restaurants: [req.body] })
+          .then(result => res.status(200).json(result))
+          .catch(next)
       } else {
-        Profile.updateOne(userQuery, {$addToSet: { restaurants: req.body }})
-          .then((result) => res.status(200).send(result))
-          .catch(err => res.sendStatus(400));
+        //  Update profile with new restaurant
+        doc.restaurants = doc.restaurants.concat([req.body]);
+        doc.save()
+          .then(result => res.status(200).send(result))
+          .catch(next)
       }
     })
-    .catch(err => {
-      console.log(err)
-      res.sendStatus(400)
-    });
+    .catch(next);
 });
 
 module.exports = profileRouter;

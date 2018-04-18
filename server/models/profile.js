@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
+const arrayUniquePlugin = require('mongoose-unique-array');
 
 const restaurantSchema = new mongoose.Schema({
-  _id: false,
-  name: String,
+  name: {type: String, unique: true},
   image: String,
   phone: String,
   reviews: String,
   price: String,
   rating: String,
   address: [String],
-})
+});
+
+
 
 const profileSchema = new mongoose.Schema({
   _user: {
@@ -19,6 +21,9 @@ const profileSchema = new mongoose.Schema({
   },
   restaurants: [restaurantSchema],
 });
+
+profileSchema.plugin(arrayUniquePlugin);
+// restaurantSchema.plugin(arrayUniquePlugin);
 
 const Profile = mongoose.model('Profile', profileSchema);
 

@@ -64,7 +64,12 @@ app.use((req, res, next) => {
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 app.use('/profile', profileRouter);
-
 app.get('/', (req, res) => res.render('index', { user: req.user }));
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.log(err.message);
+  res.status(400).send({ error: err})
+})
 
 app.listen(port, listening);
