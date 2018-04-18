@@ -18,16 +18,16 @@ const app = express();
 const port = process.env.PORT;
 
 //  Browser-sync config
-function listening () {
-  browserSync({
-    proxy: `localhost:${port}`,
-    files: ['public/**/*.{js,css}', 'views/**/*.hbs'],
-    open: false,
-    notify: false,
-
-  });
-  console.log(`Server has started on port ${port}`)
-}
+// function listening () {
+//   browserSync({
+//     proxy: `localhost:${port}`,
+//     files: ['public/**/*.{js,css}', 'views/**/*.hbs'],
+//     open: false,
+//     notify: false,
+//
+//   });
+//   console.log(`Server has started on port ${port}`)
+// }
 
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../node_modules/bulma')));
@@ -72,4 +72,4 @@ app.use((err, req, res, next) => {
   res.status(400).send({ error: err})
 })
 
-app.listen(port, listening);
+app.listen(port);
