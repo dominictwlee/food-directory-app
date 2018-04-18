@@ -4,7 +4,7 @@ const path = require('path')
 const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const browserSync = require('browser-sync');
+// const browserSync = require('browser-sync');
 const cookieSession = require('cookie-session');
 
 require('dotenv').config();

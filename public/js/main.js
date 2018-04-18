@@ -86,6 +86,13 @@ searchForm.addEventListener('submit', (event) => {
             },
             credentials: 'include',
           })
+          .then((response) => {
+            if (res.status === 422) {
+              throw new Error('Validation Error')
+            }
+            return res.json();
+          })
+          .catch(err => console.log(err.message));
         })
       })
     })
