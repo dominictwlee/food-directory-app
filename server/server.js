@@ -1,6 +1,6 @@
 const express = require('express');
-const hbs  = require('hbs');
-const path = require('path')
+const hbs = require('hbs');
+const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
@@ -39,10 +39,12 @@ app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, '../views/partials'));
 
 // set up session cookies
-app.use(cookieSession({
+app.use(
+  cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_KEY]
-}));
+  })
+);
 
 // initialize passport
 app.use(passport.initialize());
@@ -50,14 +52,15 @@ app.use(passport.session());
 
 //  Setup MongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI)
+mongoose
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log('connected to mongodb'))
   .catch(err => console.log(err));
 
 //  Enable CORS
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
@@ -69,7 +72,7 @@ app.get('/', (req, res) => res.render('index', { user: req.user }));
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.log(err.message);
-  res.status(400).send({ error: err})
-})
+  res.status(400).send({ error: err });
+});
 
 app.listen(port);

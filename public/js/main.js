@@ -40,17 +40,16 @@ function createRestaurantCard(data, index, columns) {
         <button class="card-footer-item button is-large is-primary" id="save-btn" data-index="${index}">Save To Favourites</button>
       </footer>
     </article>
-  `
+  `;
   columns.appendChild(column);
-
 }
 
-searchForm.addEventListener('submit', (event) => {
+searchForm.addEventListener('submit', event => {
   const mainBody = document.querySelector('#main-body');
   //  Fetch restaurant data from API
   const url = `api/search?postcode=${postCode.value}&cuisine=${cuisineType.value}`;
   fetch(url)
-    .then((res) => {
+    .then(res => {
       if (res.status === 400) {
         throw new Error('No Entries Found');
       }
@@ -64,15 +63,15 @@ searchForm.addEventListener('submit', (event) => {
       mainBody.innerHTML = '';
 
       data.forEach((restaurant, index) => {
-        createRestaurantCard(restaurant, index, columns)
-      })
+        createRestaurantCard(restaurant, index, columns);
+      });
       mainBody.appendChild(columns);
       return data;
     })
     .then(restaurant => {
       const saveBtn = document.querySelectorAll('#save-btn');
       saveBtn.forEach((button, index) => {
-        button.addEventListener('click', (event) => {
+        button.addEventListener('click', event => {
           const itemIndex = event.target.dataset.index;
           console.log(itemIndex);
           console.log(restaurant);
@@ -82,19 +81,19 @@ searchForm.addEventListener('submit', (event) => {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
-              'content-type': 'application/json',
+              'content-type': 'application/json'
             },
-            credentials: 'include',
+            credentials: 'include'
           })
-          .then((response) => {
-            if (res.status === 422) {
-              throw new Error('Validation Error')
-            }
-            return res.json();
-          })
-          .catch(err => console.log(err.message));
-        })
-      })
+            .then(response => {
+              if (res.status === 422) {
+                throw new Error('Validation Error');
+              }
+              return res.json();
+            })
+            .catch(err => console.log(err.message));
+        });
+      });
     })
     .catch(err => {
       mainBody.innerHTML = `
@@ -112,6 +111,6 @@ searchForm.addEventListener('submit', (event) => {
         </section>
       `;
       console.log(err.message);
-    })
-    event.preventDefault();
-})
+    });
+  event.preventDefault();
+});

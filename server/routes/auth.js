@@ -12,12 +12,15 @@ authRouter.get('/login', (req, res) => {
 authRouter.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
-})
+});
 
 //  auth with google
-authRouter.get('/google', passport.authenticate('google', {
-  scope: ['profile']
-}));
+authRouter.get(
+  '/google',
+  passport.authenticate('google', {
+    scope: ['profile']
+  })
+);
 
 authRouter.get('/google/redirect', passport.authenticate('google'), (req, res) => {
   res.redirect('/profile');
