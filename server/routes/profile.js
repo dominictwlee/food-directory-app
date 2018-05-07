@@ -49,4 +49,16 @@ profileRouter.post('/', authCheck, (req, res, next) => {
     .catch(next);
 });
 
+profileRouter.delete('/:id', authCheck, (req, res) => {
+  Profile.findOneAndUpdate(
+    { 'restaurants._id': req.params.id },
+    {
+      $pull: { restaurants: { _id: req.params.id } }
+    },
+    { new: true }
+  )
+    .then(doc => res.redirect(200, '/profile'))
+    .catch(err => console.log(err));
+});
+
 module.exports = profileRouter;

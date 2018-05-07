@@ -21,7 +21,6 @@ const profileSchema = new mongoose.Schema({
 });
 
 profileSchema.plugin(arrayUniquePlugin);
-// restaurantSchema.plugin(arrayUniquePlugin);
 
 const Profile = mongoose.model('Profile', profileSchema);
 
