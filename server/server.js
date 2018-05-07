@@ -4,7 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-// const browserSync = require('browser-sync');
+const browserSync = require('browser-sync');
 const cookieSession = require('cookie-session');
 
 require('dotenv').config();
@@ -17,17 +17,17 @@ const profileRouter = require('./routes/profile');
 const app = express();
 const port = process.env.PORT;
 
-//  Browser-sync config
-// function listening () {
-//   browserSync({
-//     proxy: `localhost:${port}`,
-//     files: ['public/**/*.{js,css}', 'views/**/*.hbs'],
-//     open: false,
-//     notify: false,
-//
-//   });
-//   console.log(`Server has started on port ${port}`)
-// }
+ Browser-sync config
+function listening () {
+  browserSync({
+    proxy: `localhost:${port}`,
+    files: ['public/**/*.{js,css}', 'views/**/*.hbs'],
+    open: false,
+    notify: false,
+
+  });
+  console.log(`Server has started on port ${port}`)
+}
 
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../node_modules/bulma')));
