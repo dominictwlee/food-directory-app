@@ -79,7 +79,10 @@
               <a class="card-footer-item">Reviews</a>
             </footer>
             <footer class="card-footer">
-              <button class="card-footer-item button is-large is-danger" id="delete-btn" data-itemid="{{this._id}}">Delete</button>
+              <form class="delete-form" action="/profile/{{this._id}}?_method=DELETE" method="POST">
+                <input type="submit" class="card-footer-item button is-large is-danger" id="delete-btn" data-itemid="{{this._id}}" value="Delete">
+              </form>
+
             </footer>
           </article>
         </div>

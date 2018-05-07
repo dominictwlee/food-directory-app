@@ -57,7 +57,7 @@ profileRouter.delete('/:id', authCheck, (req, res) => {
     },
     { new: true }
   )
-    .then(doc => res.redirect(200, '/profile'))
+    .then(doc => res.redirect('/profile'))
     .catch(err => console.log(err));
 });
 
