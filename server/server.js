@@ -65,3 +65,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port);
+
+module.exports = { app };

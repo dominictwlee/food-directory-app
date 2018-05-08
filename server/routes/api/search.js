@@ -40,7 +40,7 @@ apiRouter.get('/search', (req, res) => {
           address: restaurant.location.display_address
         };
       });
-      res.json(restaurants);
+      res.status(200).json(restaurants);
     })
     .catch(err => {
       console.log(err.message);
