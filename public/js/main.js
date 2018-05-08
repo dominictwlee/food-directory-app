@@ -73,8 +73,6 @@ searchForm.addEventListener('submit', event => {
       saveBtn.forEach((button, index) => {
         button.addEventListener('click', event => {
           const itemIndex = event.target.dataset.index;
-          console.log(itemIndex);
-          console.log(restaurant);
           const data = restaurant[itemIndex];
 
           fetch('profile', {
@@ -86,10 +84,15 @@ searchForm.addEventListener('submit', event => {
             credentials: 'include'
           })
             .then(response => {
-              if (res.status === 422) {
+              if (response.status === 422) {
                 throw new Error('Validation Error');
+              } else if (response.status === 401) {
+                window.location.href = '/auth/login';
+              } else {
+                button.disabled = true;
+                button.innerHTML = 'Saved';
+                return response.json();
               }
-              return res.json();
             })
             .catch(err => console.log(err.message));
         });

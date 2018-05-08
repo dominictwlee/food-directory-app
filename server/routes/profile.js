@@ -14,7 +14,15 @@ const authCheck = (req, res, next) => {
   }
 };
 
-profileRouter.get('/', authCheck, (req, res) => {
+const ajaxAuthCheck = (req, res, next) => {
+  if (!req.user) {
+    res.status(401).json();
+  } else {
+    next();
+  }
+};
+
+profileRouter.get('/', ajaxAuthCheck, (req, res, next) => {
   Profile.findOne({ _user: req.user._id })
     .then(user => {
       if (user) {
@@ -25,10 +33,10 @@ profileRouter.get('/', authCheck, (req, res) => {
         res.render('profile');
       }
     })
-    .catch(err => res.status(400).send(err));
+    .catch(next);
 });
 
-profileRouter.post('/', authCheck, (req, res, next) => {
+profileRouter.post('/', ajaxAuthCheck, (req, res, next) => {
   //  Find user profile
   Profile.findOne({ _user: req.user._id })
     .then(doc => {
@@ -49,7 +57,7 @@ profileRouter.post('/', authCheck, (req, res, next) => {
     .catch(next);
 });
 
-profileRouter.delete('/:id', authCheck, (req, res) => {
+profileRouter.delete('/:id', authCheck, (req, res, next) => {
   Profile.findOneAndUpdate(
     { 'restaurants._id': req.params.id },
     {
@@ -58,7 +66,7 @@ profileRouter.delete('/:id', authCheck, (req, res) => {
     { new: true }
   )
     .then(doc => res.redirect('/profile'))
-    .catch(err => console.log(err));
+    .catch(next);
 });
 
 module.exports = profileRouter;

@@ -16,9 +16,6 @@
 
 .navbar-brand .navbar-item:hover {
   color: #d01d1d;
-  /* We can use "color" for setting the color
-  of the SVG because we set its "fill" to
-  "currentColor" */
 }
 
 .container-sign-up {
